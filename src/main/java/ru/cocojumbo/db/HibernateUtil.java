@@ -19,6 +19,7 @@ public class HibernateUtil {
         try {
             emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
         } catch (Throwable ex) {
+            System.out.println(ex.getStackTrace());
             throw new ExceptionInInitializerError(ex);
         }
     }

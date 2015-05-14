@@ -12,5 +12,8 @@
 </head>
 <body>
   HELLO WORLD!
+  <%
+      ru.cocojumbo.db.CatService.addCat("new_category");
+  %>
 </body>
 </html>
