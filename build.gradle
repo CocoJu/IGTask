@@ -4,7 +4,17 @@ apply plugin: 'war'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+String tomcat_home = "D:\\JAVA-DEV\\clean-tomcat-7.0.59"
+
 version = '1.0'
+
+task deploy (dependsOn: war){
+    copy {
+        from "build/libs"
+        into "${tomcat_home}/webapps"
+        include "*.war"
+    }
+}
 
 repositories {
     mavenCentral()
@@ -12,6 +22,9 @@ repositories {
 
 dependencies {
     //testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'mysql:mysql-connector-java:5.1.35'
+    compile 'org.hibernate:hibernate-core:4.2.19.Final'
+    compile 'org.hibernate:hibernate-entitymanager:4.2.19.Final'
     providedCompile 'javax.servlet:servlet-api:2.5'
     runtime 'javax.servlet:jstl:1.1.2'
 }
