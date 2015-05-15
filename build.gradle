@@ -4,8 +4,8 @@ apply plugin: 'war'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-//String tomcat_home = "D:\\JAVA-DEV\\clean-tomcat-7.0.59"
-String tomcat_home = "D:\\JAVADEV\\tomcat7"
+String tomcat_home = "D:\\JAVA-DEV\\clean-tomcat-7.0.59"
+//String tomcat_home = "D:\\JAVADEV\\tomcat7"
 
 version = '1.0'
 

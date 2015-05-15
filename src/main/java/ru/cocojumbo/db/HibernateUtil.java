@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 
 public class HibernateUtil {
 
-    private static final String PERSISTENT_UNIT_NAME = "item-manager-pu";
+    private static final String PERSISTENT_UNIT_NAME = "db-manager";
 
     private static final EntityManagerFactory emf;
 
@@ -19,7 +19,6 @@ public class HibernateUtil {
         try {
             emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
         } catch (Throwable ex) {
-            System.out.println(ex.getStackTrace());
             throw new ExceptionInInitializerError(ex);
         }
     }
