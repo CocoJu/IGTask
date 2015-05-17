@@ -25,16 +25,15 @@ public class SearchManager {
         CriteriaQuery<ProdwithcatEntity> query = cb.createQuery(ProdwithcatEntity.class);
         Root<ProdwithcatEntity> rootProdWithCat = query.from(ProdwithcatEntity.class);
         CriteriaQuery<ProdwithcatEntity> cq = query.select(rootProdWithCat);
-        String printers = "принтеры";
-        if(category != null){
-            cq.where(cb.like(rootProdWithCat.get("catName"),
-                   // "%" + StringEncoder.encode(category) + "%"));
-                   "%" + printers + "%"));}
-        /*if(nameProd != null){
+        /*String printers = "принтеры";
+            cq.where(cb.like(rootProdWithCat.get("catName"), printers));
+                   // "%" + StringEncoder.encode(category) + "%"));*/
+
+        if(nameProd != null){
             cq.where(cb.like(rootProdWithCat.get("name"),
-                    "%" + StringEncoder.encode(nameProd) + "%"));}*/
-        HelpLog.pringToLog("system encoding", System.getProperty("file.encoding"));
-        HelpLog.pringToLog("printers var", printers);
+                    "%" + StringEncoder.encode(nameProd) + "%"));}
+        //HelpLog.pringToLog("system encoding", System.getProperty("file.encoding"));
+        //HelpLog.pringToLog("printers var", printers);
         TypedQuery<ProdwithcatEntity> typedQuery = em.createQuery(query);
         return typedQuery.getResultList();
     }
