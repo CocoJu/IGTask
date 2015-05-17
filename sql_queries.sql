@@ -28,9 +28,16 @@ VALUES (1,'принтер Epson L800', 11670.50),
   (2,'факс Philips Laserfax 5125', 7400.80),
   (2,'факс Panasonic KX-FLC418 RU', 12500.60),
   (2,'факс Panasonic KX-FP207RU', 5200.10),
+  (2,'Факс Panasonic KX-FL423RU Black', 11590.10),
   (3,'Моноблок ASUS ET2322INTH-B001R', 62000.10),
   (3,'Моноблок ASUS ET2321IUKH-B004R', 45500.10),
   (3,'Моноблок ASUS ET2321INTH-B020R', 75000.00),
   (4,'Картридж Epson T1706 комплект (BK-C-M-Y)', 3200.80),
   (4,'Картридж для принтера HP 121b', 2500.90),
   (4,'Картридж Uniton ТК-130', 850.00)
+
+  CREATE VIEW prodWithCat AS
+  SELECT prod.id, cat.name as catName, prod.name, prod.price
+  FROM prod
+  INNER JOIN cat
+  ON prod.cat_id = cat.id

@@ -1,3 +1,11 @@
+<%@ page import="javax.persistence.EntityManager" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.io.OutputStream" %>
+<%@ page import="java.io.PrintStream" %>
+<%@ page import="ru.cocojumbo.db.*" %>
+<%@ page import="ru.cocojumbo.util.FormEncodingSetterFilter" %>
+<%@ page import="javax.print.DocFlavor" %>
+<%@ page import="ru.cocojumbo.util.StringEncoder" %>
 <%--
   Created by IntelliJ IDEA.
   User: df
@@ -5,7 +13,9 @@
   Time: 11:25
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 
 <link rel="stylesheet" href="resources/css/bootstrap.min.css"/>
@@ -15,11 +25,11 @@
 </head>
 <body>
 <div class="container">
-    <form role="form" class="navbar-form pull-left">
-        <input type="text" class="form-control span2" placeholder="категория">
-        <input type="text" class="form-control span2" placeholder="наименование">
-        <input type="text" class="form-control span2" placeholder="цена от">
-        <input type="text" class="form-control span2" placeholder="цена до">
+    <form role="form" class="navbar-form pull-left" action="/testtask-1.0/" accept-charset="UTF-8">
+        <input name="category" type="text" class="form-control span2" placeholder="категория">
+        <input name="name" type="text" class="form-control span2" placeholder="наименование">
+        <input name="priceAt" type="text" class="form-control span2" placeholder="цена от">
+        <input name="priceOf" type="text" class="form-control span2" placeholder="цена до">
         <button type="submit" class="btn btn-default">Найти</button>
     </form>
     <table class="table">
@@ -32,16 +42,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Tanmay</td>
-            <td>Bangalore</td>
-            <td>Bangalore</td>
-        </tr>
-        <tr>
-            <td>Sachin</td>
-            <td>Mumbai</td>
-            <td>Bangalore</td>
-        </tr>
+        <%
+            List<ProdwithcatEntity> list = SearchManager.returnProd(
+                    request.getParameter("category"), request.getParameter("name"),
+                    request.getParameter("priceAt"), request.getParameter("priceOf"));
+            for(ProdwithcatEntity prod : list){
+                %>
+                <tr>
+                    <th><%= prod.getCatName() %></th>
+                    <th><%= prod.getName() %></th>
+                    <th><%= prod.getPrice() %></th>
+                </tr>
+                <%
+            }
+        %>
         </tbody>
     </table>
 </div>

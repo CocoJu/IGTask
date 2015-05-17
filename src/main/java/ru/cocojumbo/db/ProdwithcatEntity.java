@@ -1,18 +1,16 @@
 package ru.cocojumbo.db;
-
 import javax.persistence.*;
 
 /**
  * Created by ANK on 17.05.2015.
  */
 @Entity
-@Table(name = "prod", schema = "", catalog = "price_db")
-public class ProdEntity {
+@Table(name = "prodwithcat", schema = "", catalog = "price_db")
+public class ProdwithcatEntity {
     private int id;
-    private Integer catId;
+    private String catName;
     private String name;
     private Float price;
-    private CatEntity catByCatId;
 
     @Id
     @Column(name = "id", nullable = false, insertable = false, updatable = false)
@@ -25,13 +23,13 @@ public class ProdEntity {
     }
 
     @Basic
-    @Column(name = "cat_id", nullable = true, insertable = false, updatable = false)
-    public Integer getCatId() {
-        return catId;
+    @Column(name = "catName", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getCatName() {
+        return catName;
     }
 
-    public void setCatId(Integer catId) {
-        this.catId = catId;
+    public void setCatName(String catName) {
+        this.catName = catName;
     }
 
     @Basic
@@ -59,10 +57,10 @@ public class ProdEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProdEntity that = (ProdEntity) o;
+        ProdwithcatEntity that = (ProdwithcatEntity) o;
 
         if (id != that.id) return false;
-        if (catId != null ? !catId.equals(that.catId) : that.catId != null) return false;
+        if (catName != null ? !catName.equals(that.catName) : that.catName != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
 
@@ -72,19 +70,9 @@ public class ProdEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (catId != null ? catId.hashCode() : 0);
+        result = 31 * result + (catName != null ? catName.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "cat_id", referencedColumnName = "id")
-    public CatEntity getCatByCatId() {
-        return catByCatId;
-    }
-
-    public void setCatByCatId(CatEntity catByCatId) {
-        this.catByCatId = catByCatId;
     }
 }

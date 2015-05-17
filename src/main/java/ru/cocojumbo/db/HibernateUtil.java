@@ -17,6 +17,7 @@ public class HibernateUtil {
 
     static {
         try {
+            System.setProperty("file.encoding", "UTF-8");
             emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);

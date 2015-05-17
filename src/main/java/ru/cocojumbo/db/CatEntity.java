@@ -1,18 +1,20 @@
 package ru.cocojumbo.db;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by df on 14.05.2015.
+ * Created by ANK on 17.05.2015.
  */
 @Entity
 @Table(name = "cat", schema = "", catalog = "price_db")
 public class CatEntity {
     private int id;
     private String name;
+    private Collection<ProdEntity> prodsById;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, insertable = false, updatable = false)
     public int getId() {
         return id;
     }
@@ -22,7 +24,7 @@ public class CatEntity {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 255)
     public String getName() {
         return name;
     }
@@ -49,5 +51,14 @@ public class CatEntity {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "catByCatId")
+    public Collection<ProdEntity> getProdsById() {
+        return prodsById;
+    }
+
+    public void setProdsById(Collection<ProdEntity> prodsById) {
+        this.prodsById = prodsById;
     }
 }
