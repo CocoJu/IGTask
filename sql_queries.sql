@@ -1,43 +1,49 @@
 #db name = price_db
 
 CREATE TABLE cat (
-  id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  name varchar(255)
+  id INT (11
+) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+NAME VARCHAR(255)
 );
 
 CREATE TABLE prod (
-  id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  cat_id INTEGER,
-  name VarCHAR(255),
-  price FLOAT(16,2),
-  FOREIGN KEY (cat_id) REFERENCES cat(id)
+  id INT (11
+) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+cat_id INTEGER,
+NAME VARCHAR(255),
+price FLOAT(16, 2),
+FOREIGN KEY (cat_id) REFERENCES cat(id)
 );
 
 
 INSERT INTO cat (name)
-VALUES ('принтеры'),
-        ('факсы'),
-        ('компьютеры'),
-        ('картриджи')
+VALUES ("РїСЂРёРЅС‚РµСЂС‹"),
+  ("С„Р°РєСЃС‹"),
+  ("РєРѕРјРїСЊСЋС‚РµСЂС‹"),
+  ("РєР°СЂС‚СЂРёРґР¶Рё")
 
-INSERT INTO prod(cat_id,name,price)
-VALUES (1,'принтер Epson L800', 11670.50),
-  (1,'принтер Epson L200', 8890.50),
-  (1,'принтер Canon PIXMA MG3540', 3090.20),
-  (1,'принтер Canon PIXMA MG2440', 1817.00),
-  (2,'факс Philips Laserfax 5125', 7400.80),
-  (2,'факс Panasonic KX-FLC418 RU', 12500.60),
-  (2,'факс Panasonic KX-FP207RU', 5200.10),
-  (2,'Факс Panasonic KX-FL423RU Black', 11590.10),
-  (3,'Моноблок ASUS ET2322INTH-B001R', 62000.10),
-  (3,'Моноблок ASUS ET2321IUKH-B004R', 45500.10),
-  (3,'Моноблок ASUS ET2321INTH-B020R', 75000.00),
-  (4,'Картридж Epson T1706 комплект (BK-C-M-Y)', 3200.80),
-  (4,'Картридж для принтера HP 121b', 2500.90),
-  (4,'Картридж Uniton ТК-130', 850.00)
+INSERT INTO prod (cat_id, name, price)
+VALUES (1, "РїСЂРёРЅС‚РµСЂ Epson L800", 11670.50),
+  (1, "РїСЂРёРЅС‚РµСЂ Epson L200", 8890.50),
+  (1, "РїСЂРёРЅС‚РµСЂ Canon PIXMA MG3540", 3090.20),
+  (1, "РїСЂРёРЅС‚РµСЂ Canon PIXMA MG2440", 1817.00),
+  (2, "С„Р°РєСЃ Philips Laserfax 5125", 7400.80),
+  (2, "С„Р°РєСЃ Panasonic KX - FLC418 RU", 12500.60),
+  (2, "С„Р°РєСЃ Panasonic KX - FP207RU", 5200.10),
+  (2, "Р¤Р°РєСЃ Panasonic KX - FL423RU Black", 11590.10),
+  (3, "РњРѕРЅРѕР±Р»РѕРє ASUS ET2322INTH - B001R", 62000.10),
+  (3, "РњРѕРЅРѕР±Р»РѕРє ASUS ET2321IUKH - B004R", 45500.10),
+  (3, "РњРѕРЅРѕР±Р»РѕРє ASUS ET2321INTH - B020R", 75000.00),
+  (4, "РљР°СЂС‚СЂРёРґР¶ Epson T1706 РєРѕРјРїР»РµРєС‚ (BK-C- M - Y)", 3200.80),
+  (4, "РљР°СЂС‚СЂРёРґР¶ РґР»СЏ РїСЂРёРЅС‚РµСЂР° HP 121b", 2500.90),
+  (4, "РљР°СЂС‚СЂРёРґР¶ Uniton РўРљ - 130", 850.00)
 
-  CREATE VIEW prodWithCat AS
-  SELECT prod.id, cat.name as catName, prod.name, prod.price
+CREATE VIEW prodWithCat AS
+  SELECT
+    prod.id,
+    cat.name AS catName,
+    prod.name,
+    prod.price
   FROM prod
-  INNER JOIN cat
-  ON prod.cat_id = cat.id
+    INNER JOIN cat
+      ON prod.cat_id = cat.id

@@ -6,6 +6,7 @@
 <%@ page import="ru.cocojumbo.util.FormEncodingSetterFilter" %>
 <%@ page import="javax.print.DocFlavor" %>
 <%@ page import="ru.cocojumbo.util.StringEncoder" %>
+<%@ page import="ru.cocojumbo.util.HelpLog" %>
 <%--
   Created by IntelliJ IDEA.
   User: df
@@ -46,6 +47,7 @@
             List<ProdwithcatEntity> list = SearchManager.returnProd(
                     request.getParameter("category"), request.getParameter("name"),
                     request.getParameter("priceAt"), request.getParameter("priceOf"));
+            HelpLog.pringToLog("sizeList", list.size());
             for(ProdwithcatEntity prod : list){
                 %>
                 <tr>
