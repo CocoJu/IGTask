@@ -34,7 +34,7 @@ public class SearchManager {
             conditionString += " AND ";
         conditionString +=  fieldName + " " + condition;
         andFlag = true;
-        conditionString = conditionString.replace("?", StringEncoder.encode(param));
+        conditionString = conditionString.replace(":?", StringEncoder.encode(param));
     }
     public static void clearConditionString(){
         conditionString = "";
@@ -44,36 +44,11 @@ public class SearchManager {
                   String nameProd,String priceFrom, String PriceTo)
                                 throws UnsupportedEncodingException{
         EntityManager em = HibernateUtil.getEm();
-        setField("c.catName", "LIKE '%?%'", category);
-        setField("c.name", "LIKE '%?%'", nameProd);
-        HelpLog.pringToLog("query",selectProdWithCat + conditionString);
-        Query q =  em.createQuery(selectProdWithCat + conditionString);
+        setField("catName", "like '(^|[ ]){1}:?([ ]|$){1}')", category);
+        //setField("c.name", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", nameProd);
+        HelpLog.pringToLog("query", selectProdWithCat + conditionString);
+        Query q = em.createQuery(selectProdWithCat + conditionString);
         clearConditionString();
-        /*CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<ProdwithcatEntity> query = cb.createQuery(ProdwithcatEntity.class);
-        Root<ProdwithcatEntity> rootProdWithCat = query.from(ProdwithcatEntity.class);
-        CriteriaQuery<ProdwithcatEntity> cq = query.select(rootProdWithCat);
-        Predicate pre1=null;
-        Predicate pre2=null;
-        if(category != null && !category.equals(""))
-            pre1 = cb.like(rootProdWithCat.get("catName"),
-                    "%" + StringEncoder.encode(category) + "%");
-            cq.where(cb.like(rootProdWithCat.get("catName"),
-                    "%" + StringEncoder.encode(category) + "%"));
-        if(nameProd != null && !nameProd.equals(""))
-            cq.where(cb.like(rootProdWithCat.get("name"),
-                            "%" + StringEncoder.encode(nameProd) + "%"));
-            pre2 = cb.like(rootProdWithCat.get("name"),
-                    "%" + StringEncoder.encode(nameProd) + "%");
-        String printers = "принтеры";
-            cq.where(cb.like(rootProdWithCat.get("catName"), printers));
-                   // "%" + StringEncoder.encode(category) + "%"));
-*/
-
-        //HelpLog.pringToLog("system encoding", System.getProperty("file.encoding"));
-        //HelpLog.pringToLog("printers var", printers);
-        //TypedQuery<ProdwithcatEntity> typedQuery = em.createQuery(query);
         return q.getResultList();
-        //return null;
     }
 }
