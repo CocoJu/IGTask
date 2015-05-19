@@ -1,54 +1,50 @@
 package ru.cocojumbo.db;
 
-//import org.hibernate.criterion.CriteriaQuery;
 import ru.cocojumbo.util.HelpLog;
 import ru.cocojumbo.util.StringEncoder;
-
 import javax.persistence.Query;
-import javax.persistence.Embeddable;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.UnsupportedEncodingException;
-import java.sql.PreparedStatement;
 import java.util.List;
 
 /**
  * Created by ANK on 16.05.2015.
  */
-public class SearchManager {
+public class SearchManager {    
+    private static String CONDITION_STRING = "";
+    private static boolean AND_FLAG = false;
+    public static final String SELECT_PROD_WITH_CAT = "SELECT * FROM prodwithcat ";
 
-    private static String conditionString = "";
-    private static boolean andFlag = false;
-
-    public static final String selectProdWithCat = "SELECT c FROM ProdwithcatEntity c ";
     public static void setField(String fieldName, String condition, String param)
                             throws UnsupportedEncodingException{
-        if(param == null || param.equals(""))
-            return;
-        if(conditionString.equals("")){
-            conditionString += "WHERE ";
+        if(param == null || param.equals("")) return;
+        if(CONDITION_STRING.equals("")){
+            CONDITION_STRING += "WHERE ";
         }
-        if(andFlag)
-            conditionString += " AND ";
-        conditionString +=  fieldName + " " + condition;
-        andFlag = true;
-        conditionString = conditionString.replace(":?", StringEncoder.encode(param));
+        if(AND_FLAG)
+            CONDITION_STRING += " AND ";
+        CONDITION_STRING +=  fieldName + " " + condition;
+        AND_FLAG = true;
+        CONDITION_STRING = CONDITION_STRING.replace(":?", StringEncoder.encode(param));
     }
+
     public static void clearConditionString(){
-        conditionString = "";
-        andFlag = false;
+        CONDITION_STRING = "";
+        AND_FLAG = false;
     }
+
     public static List<ProdwithcatEntity> returnProd (String category,
-                  String nameProd,String priceFrom, String PriceTo)
+                  String nameProd,String priceFrom, String priceTo)
                                 throws UnsupportedEncodingException{
         EntityManager em = HibernateUtil.getEm();
-        setField("catName", "like '(^|[ ]){1}:?([ ]|$){1}')", category);
-        //setField("c.name", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", nameProd);
-        HelpLog.pringToLog("query", selectProdWithCat + conditionString);
-        Query q = em.createQuery(selectProdWithCat + conditionString);
+        setField("lower(catName)", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", category);
+        setField("lower(name)", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", nameProd);
+        setField("price", ">= :?", priceFrom);
+        setField("price", "<= :?", priceTo);
+        Query q = em.createNativeQuery(SELECT_PROD_WITH_CAT +
+                        CONDITION_STRING, ProdwithcatEntity.class);
+        HelpLog.printToLog("query string",SELECT_PROD_WITH_CAT + CONDITION_STRING);
         clearConditionString();
-        return q.getResultList();
+        return (List<ProdwithcatEntity>)q.getResultList();
     }
 }

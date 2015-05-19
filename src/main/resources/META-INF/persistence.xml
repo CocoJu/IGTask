@@ -3,12 +3,9 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence">
 <persistence-unit name="db-manager" transaction-type="RESOURCE_LOCAL">
-    <class>ru.cocojumbo.db.CatEntity</class>
-    <class>ru.cocojumbo.db.ProdEntity</class>
     <class>ru.cocojumbo.db.ProdwithcatEntity</class>
     <properties>
-   <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>-->
-    <property name="hibernate.dialect" value="ru.cocojumbo.util.AppMySQLDialect"/>
+    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
     <property name="hibernate.hbm2ddl.auto" value = "validate"/>
     <property name="hibernate.show_sql" value = "true"/>
     <property name="hibernate.format_sql" value = "true"/>
