@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * Created by ANK on 16.05.2015.
  */
-public class SearchManager {    
+public class SearchManager {
+
     private static String CONDITION_STRING = "";
     private static boolean AND_FLAG = false;
     public static final String SELECT_PROD_WITH_CAT = "SELECT * FROM prodwithcat ";
@@ -37,15 +38,18 @@ public class SearchManager {
     public static List<ProdwithcatEntity> returnProd (String category,
                   String nameProd,String priceFrom, String priceTo)
                                 throws UnsupportedEncodingException{
-        EntityManager em = HibernateUtil.getEm();
-        setField("lower(catName)", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", category);
-        setField("lower(name)", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", nameProd);
-        setField("price", ">= :?", priceFrom);
-        setField("price", "<= :?", priceTo);
-        Query q = em.createNativeQuery(SELECT_PROD_WITH_CAT +
-                        CONDITION_STRING, ProdwithcatEntity.class);
-        HelpLog.printToLog("query string",SELECT_PROD_WITH_CAT + CONDITION_STRING);
-        clearConditionString();
-        return (List<ProdwithcatEntity>)q.getResultList();
+        try {
+            EntityManager em = HibernateUtil.getEm();
+            setField("lower(catName)", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", category);
+            setField("lower(name)", "REGEXP '(^|[ ]){1}:?([ ]|$){1}'", nameProd);
+            setField("price", ">= :?", priceFrom);
+            setField("price", "<= :?", priceTo);
+            Query q = em.createNativeQuery(SELECT_PROD_WITH_CAT +
+                    CONDITION_STRING, ProdwithcatEntity.class);
+            HelpLog.printToLog("query string", SELECT_PROD_WITH_CAT + CONDITION_STRING);
+            return (List<ProdwithcatEntity>) q.getResultList();
+        }finally {
+            clearConditionString();
+        }
     }
 }

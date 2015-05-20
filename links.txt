@@ -1,1 +1,0 @@
-http://devcolibri.com/1658 JPA работа с БД
