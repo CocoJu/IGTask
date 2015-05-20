@@ -25,7 +25,8 @@ public class SearchManager {
             CONDITION_STRING += " AND ";
         CONDITION_STRING +=  fieldName + " " + condition;
         AND_FLAG = true;
-        CONDITION_STRING = CONDITION_STRING.replace(":?", StringEncoder.encode(param));
+        CONDITION_STRING = CONDITION_STRING.replace(":?",
+                StringEncoder.encode(param).toLowerCase());
     }
 
     public static void clearConditionString(){

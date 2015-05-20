@@ -49,8 +49,10 @@
         <tbody>
         <%
             List<ProdwithcatEntity> list = SearchManager.returnProd(
-                    request.getParameter("category"), request.getParameter("name"),
-                    request.getParameter("priceFrom"), request.getParameter("priceOf"));
+                    request.getParameter("category"),
+                    request.getParameter("name"),
+                    request.getParameter("priceFrom"),
+                    request.getParameter("priceOf"));
             for(ProdwithcatEntity prod : list){
                 %>
                 <tr>
