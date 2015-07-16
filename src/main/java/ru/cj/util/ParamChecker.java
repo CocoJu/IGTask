@@ -1,4 +1,4 @@
-package ru.cocojumbo.util;
+package ru.cj.util;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
@@ -14,8 +14,6 @@ public class ParamChecker {
                         throws UnsupportedEncodingException{
         if(req.getParameter(param) != null){
             if(!req.getParameter(param).equals(""))
-                HelpLog.printToLog("value sring", StringEncoder.encode(req.getParameter(param)));
-                HelpLog.printToLog("value return","value="+StringEncoder.encode(req.getParameter(param)));
                 return "value="+"'"+StringEncoder.encode(req.getParameter(param))+"'";
         }
         return "";

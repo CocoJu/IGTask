@@ -1,4 +1,4 @@
-package ru.cocojumbo.util;
+package ru.cj.util;
 
 import java.io.UnsupportedEncodingException;
 

@@ -3,7 +3,8 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence">
 <persistence-unit name="db-manager" transaction-type="RESOURCE_LOCAL">
-    <class>ru.cocojumbo.db.ProdwithcatEntity</class>
+    <class>ru.cj.db.map.Product</class>
+    <class>ru.cj.db.map.Cat</class>
     <properties>
     <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
     <property name="hibernate.hbm2ddl.auto" value = "validate"/>
@@ -13,9 +14,9 @@
     <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
 
     <!--настройки соединения, логин пароль для подключения к БД-->
-    <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/price_db?useUnicode=yes&amp;characterEncoding=UTF-8"/>
-    <property name="hibernate.connection.username" value="root"/>
-    <property name="hibernate.connection.password" value=""/>
+    <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/price_db"/>
+    <property name="hibernate.connection.username"/>
+    <property name="hibernate.connection.password"/>
 
 </properties>
 </persistence-unit>

@@ -1,19 +1,19 @@
-package ru.cocojumbo.db;
-import javax.persistence.*;
+package ru.cj.db.map;
 
-/**
- * Created by ANK on 17.05.2015.
- */
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
-@Table(name = "prodwithcat", schema = "", catalog = "price_db")
-public class ProdwithcatEntity {
-    private int id;
-    private String catName;
-    private String name;
-    private Float price;
+@Table(name = "prod")
+public class Product {
 
     @Id
-    @Column(name = "id", nullable = false, insertable = false, updatable = false)
+    private int id;
+    private String name;
+    private Float price;
+    @OneToMany(mappedBy = "product")
+    private List<Cat> categories;
+
     public int getId() {
         return id;
     }
@@ -22,18 +22,6 @@ public class ProdwithcatEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "catName", nullable = true, insertable = true, updatable = true, length = 255)
-    public String getCatName() {
-        return catName;
-    }
-
-    public void setCatName(String catName) {
-        this.catName = catName;
-    }
-
-    @Basic
-    @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 255)
     public String getName() {
         return name;
     }
@@ -42,8 +30,6 @@ public class ProdwithcatEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "price", nullable = true, insertable = true, updatable = true, precision = 2)
     public Float getPrice() {
         return price;
     }
@@ -57,10 +43,10 @@ public class ProdwithcatEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProdwithcatEntity that = (ProdwithcatEntity) o;
+        Product that = (Product) o;
 
         if (id != that.id) return false;
-        if (catName != null ? !catName.equals(that.catName) : that.catName != null) return false;
+        if (categories != null ? !categories.equals(that.categories) : that.categories != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
 
@@ -70,7 +56,7 @@ public class ProdwithcatEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (catName != null ? catName.hashCode() : 0);
+        result = 31 * result + (categories != null ? categories.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;

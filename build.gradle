@@ -7,13 +7,13 @@ sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
 /*укажите каталог с локальным TOMCAT*/
-String tomcat_home = "D:\\JAVA-DEV\\clean-tomcat-7.0.59"
+String tomcat_home = "D:\\JAVA-DEV\\tomcat7"
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
 
-task deploy (dependsOn: war){
+task deploy (dependsOn: [war, clean]){
     copy {
         from "build/libs"
         into "${tomcat_home}/webapps"
@@ -30,5 +30,7 @@ dependencies {
     compile 'org.hibernate:hibernate-core:4.2.19.Final'
     compile 'org.hibernate:hibernate-entitymanager:4.2.19.Final'
     providedCompile 'javax.servlet:servlet-api:2.5'
-    runtime 'javax.servlet:jstl:1.1.2'
+    compile 'javax.servlet:jstl:1.1.2'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'org.slf4j:slf4j-simple:1.7.12'
 }
