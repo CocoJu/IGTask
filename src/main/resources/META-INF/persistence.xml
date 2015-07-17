@@ -15,8 +15,8 @@
 
     <!--настройки соединения, логин пароль для подключения к БД-->
     <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/price_db"/>
-    <property name="hibernate.connection.username"/>
-    <property name="hibernate.connection.password"/>
+    <property name="hibernate.connection.username" value="root"/>
+    <property name="hibernate.connection.password" value=""/>
 
 </properties>
 </persistence-unit>

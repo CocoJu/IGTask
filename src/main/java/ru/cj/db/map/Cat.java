@@ -1,6 +1,7 @@
 package ru.cj.db.map;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cat")
@@ -9,8 +10,17 @@ public class Cat {
     @Id
     private int id;
     private String name;
-    @ManyToOne
-    private Product product;
+
+    @OneToMany(mappedBy = "cat", cascade = CascadeType.ALL)
+    private List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public int getId() {
         return id;
@@ -30,6 +40,7 @@ public class Cat {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
