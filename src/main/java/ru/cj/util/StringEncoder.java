@@ -2,9 +2,6 @@ package ru.cj.util;
 
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by ANK on 17.05.2015.
- */
 public class StringEncoder {
     public static String encode(String str){
         try {

@@ -11,16 +11,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
-        <url-pattern>/productlist</url-pattern>
+        <url-pattern>/prods</url-pattern>
     </servlet-mapping>
-
-    <!--<servlet>
-        <servlet-name>ProductList</servlet-name>
-        <jsp-file>/WEB-INF/pages/index.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProductList</servlet-name>
-        <url-pattern>/ProductList</url-pattern>
-    </servlet-mapping>-->
 
 </web-app>

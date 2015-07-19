@@ -2,10 +2,10 @@ package ru.cj.servlets;
 
 import ru.cj.db.DbManagerFactory;
 import ru.cj.db.map.Product;
+import ru.cj.util.ParamChecker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.cj.util.ParamChecker;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,7 +46,6 @@ public class IndexServlet extends HttpServlet{
                         .getProductsByConditions(category, name, prFrom, prOf);
         request.setAttribute("product_list", productList);
 
-
         for(Product product : productList) {
                 log.info("Product name - " + product.getName().toString());
                 log.info("Product price - " + product.getPrice().toString());
@@ -55,8 +54,6 @@ public class IndexServlet extends HttpServlet{
         }
 
         request.setAttribute("context_path", request.getContextPath());
-
-
 
         RequestDispatcher rd =
                 request.getRequestDispatcher("/WEB-INF/pages/index.jsp");

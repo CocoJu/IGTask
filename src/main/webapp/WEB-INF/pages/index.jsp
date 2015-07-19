@@ -2,16 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
-
 <link rel="stylesheet" href="resources/css/bootstrap.min.css"/>
-<script src="resources/js/bootstrap.min.js"></script>
 <head>
-    <title></title>
+    <title>список товаров</title>
 </head>
 <body>
 <div clases="container">
-    <form role="form" class="navbar-form pull-left" action="
-            <c:out value="${context_path}"/>/productlist"
+    <form role="form" class="navbar-form pull-left"
+          action="<c:out value="${context_path}"/>/prods"
                 accept-charset="UTF-8">
         <input name="category" type="text"
                value="<c:out value="${category}"/>"

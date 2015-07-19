@@ -1,7 +1,6 @@
 package ru.cj.db;
 
 import ru.cj.db.hibernate.HibernateUtil;
-import ru.cj.db.map.Cat;
 import ru.cj.db.map.Product;
 
 import javax.persistence.EntityManager;
@@ -23,29 +22,28 @@ public class DbManagerPersistence implements DbManager{
     public List<Product> getProductsByConditions(
             String categoryContain, String nameContain,
                     Float priceFrom, Float priceBefore) {
-        openConnction();
+        openConnection();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> cq = cb.createQuery(Product.class);
         Root<Product> productRoot = cq.from(Product.class);
-        Root<Cat> categoryRoot = cq.from(Cat.class);
-
         List<Predicate> predicates = new ArrayList<Predicate>();
 
         if(categoryContain != null) {
             if (!categoryContain.equals("")) {
-                Expression<String> expression = categoryRoot.get("name");
-                Predicate nameContainPredicate =
-                        cb.like(cb.lower(expression),
-                                "%" + nameContain + "%");
-                predicates.add(nameContainPredicate);
+                Expression<String> catName =
+                        productRoot.get("cat").get("name");
+                Predicate catNameContainPredicate =
+                        cb.like(cb.lower(catName),
+                                "%" + categoryContain + "%");
+                predicates.add(catNameContainPredicate);
             }
         }
 
         if(nameContain != null) {
             if (!nameContain.equals("")) {
-                Expression<String> expression = productRoot.get("name");
+                Expression<String> productName = productRoot.get("name");
                 Predicate nameContainPredicate =
-                        cb.like(cb.lower(expression),
+                        cb.like(cb.lower(productName),
                                 "%" + nameContain + "%");
                 predicates.add(nameContainPredicate);
             }
@@ -74,7 +72,7 @@ public class DbManagerPersistence implements DbManager{
         return productList;
     }
 
-    private void openConnction(){
+    private void openConnection(){
         if(!entityManager.isOpen())
             entityManager = HibernateUtil.getEm();
     }
