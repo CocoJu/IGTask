@@ -1,7 +1,6 @@
 package ru.cj.db.map;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "prod")

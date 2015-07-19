@@ -1,6 +1,7 @@
 package ru.cj.db.map;
 
 import javax.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -40,7 +41,6 @@ public class Cat {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
