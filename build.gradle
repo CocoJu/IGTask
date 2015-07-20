@@ -6,20 +6,19 @@ compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
-/*укажите каталог с локальным TOMCAT*/
-String tomcat_home = "D:\\JAVA-DEV\\tomcat7"
+//String tomcat_home = "D:\\JAVA-DEV\\tomcat7"
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
 
-task deploy (dependsOn: [war, clean]){
+/*task deploy (dependsOn: [war, clean]){
     copy {
         from "build/libs"
         into "${tomcat_home}/webapps"
         include "*.war"
     }
-}
+}*/
 
 repositories {
     mavenCentral()

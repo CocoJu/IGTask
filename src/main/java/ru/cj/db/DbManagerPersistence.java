@@ -10,7 +10,7 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbManagerPersistence implements DbManager{
+public class DbManagerPersistence extends DbManager{
 
     private EntityManager entityManager;
 
@@ -49,10 +49,16 @@ public class DbManagerPersistence implements DbManager{
             }
         }
 
-        if(priceFrom != null && priceBefore != null){
-            Expression<Float> price =  productRoot.get("price");
+        Expression<Float> price =  productRoot.get("price");
+        if(priceBefore != null){
             Predicate pricePredicate =
                     cb.between(price, priceFrom, priceBefore);
+            predicates.add(pricePredicate);
+        }
+
+        if(priceBefore == null){
+            Predicate pricePredicate =
+                    cb.gt(price, priceFrom);
             predicates.add(pricePredicate);
         }
 
@@ -69,7 +75,9 @@ public class DbManagerPersistence implements DbManager{
         List<Product> productList =
                 productTypedQuery.getResultList();
         closeConnection();
-        return productList;
+
+        return DbManagerPersistence.filterProducts(
+                productList, nameContain, categoryContain );
     }
 
     private void openConnection(){

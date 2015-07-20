@@ -22,7 +22,6 @@ public class IndexServlet extends HttpServlet{
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
                         throws ServletException, IOException {
-        log.info("Index Servlet is run!");
 
         ParamChecker checkParam = new ParamChecker(request);
         String category = checkParam.getParamIfExist("category");
@@ -35,7 +34,8 @@ public class IndexServlet extends HttpServlet{
         request.setAttribute("priceOf", priceOf);
 
         Float prFrom, prOf;
-        prFrom = prOf = null;
+        prFrom = 0.0F;
+        prOf = null;
         if(!priceFrom.equals(""))
             prFrom = Float.parseFloat(priceFrom);
         if(!priceOf.equals(""))
